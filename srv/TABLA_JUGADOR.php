@@ -1,0 +1,7 @@
+<?php
+
+const JUGADOR = "JUGADOR";
+const JUG_ID = "JUG_ID";
+const JUG_NOMBRE = "JUG_NOMBRE";
+const JUG_EQUIPO = "JUG_EQUIPO";
+const JUG_POSICION = "JUG_POSICION";

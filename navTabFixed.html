@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es" class="light dark">
+
+<head>
+
+  <meta charset="UTF-8">
+  <title>Modifica - Base404</title>
+
+  <script src="js/registraServiceWorker.js"></script>
+
+  <meta name="viewport" content="width=device-width">
+  <meta name="theme-color" content="#00a97f">
+  <link rel="icon" sizes="32x32" href="favicon.ico">
+  <link rel="manifest" href="site.webmanifest">
+  <script src="ungap/custom-elements.js"></script>
+
+  <script type="module" src="js/configura.js"></script>
+  <link rel="stylesheet" href="css/estilos.css">
+  <link rel="stylesheet" href="css/transicion_pestanas.css">
+  
+
+     <script>
+  // Obtiene los parámetros de la página.
+  const params = new URL(location.href).searchParams
+ </script>
+
+</head>
+
+<body onload="if (params.size > 0) {
+   consumeJson('srv/jugador.php?' + params)
+    .then(respuesta => muestraObjeto(forma, respuesta.body))
+    .catch(muestraError)
+  }">
+
+  <md-top-app-bar class="medium">
+
+    <h1>Modifica</h1>
+    
+    <button type="submit" class="md-standard-icon-button" title="Guardar" slot="action" form="forma">
+   <span class="material-symbols-outlined">save</span>
+  </button>
+
+   <button is="md-overflow-button" slot="action"
+    onclick="overflow.alterna(this)"></button>
+
+    <a href="index.html" class="md-menu-button" title="Cancelar" slot="navigation">
+     <span class="material-symbols-outlined">arrow_back</span></a>
+
+    
+
+  </md-top-app-bar>
+
+  <main>
+   <form id="forma" onsubmit="submitForm('srv/jugador-modifica.php', event)
+    .then(respuesta => location.href = 'index.html')
+    .catch(muestraError)">
+    <input name="id" type="hidden">
+     <p>
+   <label class="md-filled-text-field float">
+    <input placeholder="Nombre*" name="nombre"  value="Cargando&hellip;">
+    <span>Nombre *</span>
+   </label>
+  </p>
+    <p>
+    <label class="md-filled-text-field float">
+      <input placeholder="Equipo*" name="equipo" value="Cargando&hellip;">
+      <span>Equipo *</span>
+    </label>
+    </p>
+    <p>
+    <label class="md-filled-text-field float">
+      <input placeholder="Posición*" name="posicion" value="Cargando&hellip;">
+      <span>Posición *</span>
+  </main>
+
+  <md-overflow-menu id="overflow">
+
+  <button type="button" onclick="
+     if (params.size > 0 && confirm('Confirma la eliminación')) {
+      consumeJson('srv/jugador-elimina.php?' + params)
+       .then(() => location.href = 'index.html')
+       .catch(muestraError)
+     }">
+   <span class="material-symbols-outlined">delete</span>
+   Eliminar
+  </button>
+
+ </md-overflow-menu>
+
+  <script type="module">
+    import { muestraTextoDeAyuda } from "./lib/js/muestraTextoDeAyuda.js"
+    import { consumeJson } from "./lib/js/consumeJson.js"
+    import { muestraError } from "./lib/js/muestraError.js"
+    import { muestraObjeto } from "./lib/js/muestraObjeto.js"
+    import { submitForm } from "./lib/js/submitForm.js"
+  </script>
+
+</body>
+
+</html>
