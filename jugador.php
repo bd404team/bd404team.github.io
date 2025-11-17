@@ -33,3 +33,4 @@ ejecutaServicio(function () {
   "posicion" => ["value" => $modelo[JUG_POSICION]],
  ]);
 });
+
